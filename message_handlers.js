@@ -4,10 +4,14 @@ Der digitale Trommelkreis ist eine regelmäßige Veranstaltung.
 ============================================================
 `;
 
+/* ========================================================================== */
+
 const { global } = require("./global");
 const {
     userIsAdmin, onlyAllowedChannels, channelAllowed, parseMessage,
 } = require("./helper_functions");
+
+/* ========================================================================== */
 
 const regularCommands = {
     trommel: (msg) => {
@@ -34,6 +38,8 @@ const adminCommands = {
         // loadSession();
     },
 };
+
+/* ========================================================================== */
 
 global().bot.on("message", (msg) => {
     const { hasPrefix, command } = parseMessage(msg);
