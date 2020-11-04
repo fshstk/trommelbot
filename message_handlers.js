@@ -9,7 +9,7 @@ const {
     userIsAdmin, onlyAllowedChannels, channelAllowed, parseMessage,
 } = require("./helper_functions");
 
-const messageHandlers = {
+const regularCommands = {
     trommel: (msg) => {
         msg.channel.send("...kreis!");
     },
@@ -18,7 +18,7 @@ const messageHandlers = {
     },
 };
 
-const adminMessageHandlers = {
+const adminCommands = {
     lock: (msg) => {
         global().locked = true;
         msg.reply("TrommelBot gesperrt. Diktatur!");
@@ -43,11 +43,11 @@ global().bot.on("message", (msg) => {
     if (global().locked && !userIsAdmin(msg.author)) return;
     if (onlyAllowedChannels() && !channelAllowed(msg.channel)) return;
 
-    if (userIsAdmin(msg.author) && command in adminMessageHandlers) {
-        const handleMessage = adminMessageHandlers[command];
+    if (userIsAdmin(msg.author) && command in adminCommands) {
+        const handleMessage = adminCommands[command];
         handleMessage(msg);
-    } else if (command in messageHandlers) {
-        const handleMessage = messageHandlers[command];
+    } else if (command in regularCommands) {
+        const handleMessage = regularCommands[command];
         handleMessage(msg);
     }
 });
