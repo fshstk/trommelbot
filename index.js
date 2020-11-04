@@ -16,3 +16,6 @@ global().bot.on("ready", async () => {
 // const loadSession = () => {
 //     // load session from REST API
 // };
+global().bot.on("debug", (msg) => {
+    if (process.env.DEBUG === "1") console.log(msg);
+});
