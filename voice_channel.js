@@ -2,7 +2,7 @@ const { global } = require("./global");
 
 const { bot } = global();
 
-const assertChannelPermissions = () => {
+exports.confirmVoiceChannelSetup = () => {
     if (!global().voiceChannel) throw Error("no voice channel specified");
     const permissions = global().voiceChannel.permissionsFor(bot.user);
     if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) throw Error("insufficient privileges");
