@@ -6,7 +6,7 @@ global().bot = new Discord.Client();
 global().bot.login(process.env.BOT_TOKEN);
 global().locked = true;
 
-require("./message_handlers");
+require("./commands");
 
 global().bot.on("ready", () => console.log(`Logged in as ${global().bot.user.tag}!`));
 
