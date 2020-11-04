@@ -1,77 +1,15 @@
 require("dotenv").config();
 const Discord = require("discord.js");
-const { commandPrefix, allowedChannels } = require("./config.json");
 const { global } = require("./global");
 
 global().bot = new Discord.Client();
-const client = global().bot;
-client.login(process.env.BOT_TOKEN);
-
-client.on("ready", () => console.log(`Logged in as ${client.user.tag}!`));
-
-const userIsAdmin = (user) => user.id === process.env.ADMIN_ID;
-const onlyAllowedChannels = () => allowedChannels.length > 0;
-const channelAllowed = (channel) => allowedChannels.includes(channel.name);
-const parseMessage = (msg) => {
-    let hasPrefix = false;
-    let messageBody = msg.content;
-    if (messageBody.startsWith(commandPrefix)) {
-        hasPrefix = true;
-        messageBody = messageBody.slice(commandPrefix.length);
-    }
-    messageBody = messageBody.split(" ");
-    return { hasPrefix, command: messageBody[0], arguments: messageBody.slice(1) };
-};
+global().bot.login(process.env.BOT_TOKEN);
 global().locked = true;
-const loadSession = () => {
-    // load session from REST API
-};
 
-const infoText = `
-============================================================
-Der digitale Trommelkreis ist eine regelmäßige Veranstaltung.
-============================================================
-`;
+require("./message_handlers");
 
-const messageHandlers = {
-    trommel: (msg) => {
-        msg.channel.send("...kreis!");
-    },
-    info: (msg) => {
-        msg.reply(infoText);
-    },
-};
+global().bot.on("ready", () => console.log(`Logged in as ${global().bot.user.tag}!`));
 
-const adminMessageHandlers = {
-    lock: (msg) => {
-        global().locked = true;
-        msg.reply("TrommelBot gesperrt. Diktatur!");
-    },
-    unlock: (msg) => {
-        if (userIsAdmin(msg.author)) {
-            global().locked = false;
-            msg.reply("TrommelBot entsperrt. Anarchie!");
-        }
-    },
-    sesh: (msg) => {
-        msg.channel.send("Listening Party!");
-        loadSession();
-    },
-};
-
-client.on("message", (msg) => {
-    const { hasPrefix, command } = parseMessage(msg);
-
-    if (msg.author.bot) return;
-    if (!hasPrefix) return;
-    if (global().locked && !userIsAdmin(msg.author)) return;
-    if (onlyAllowedChannels() && !channelAllowed(msg.channel)) return;
-
-    if (userIsAdmin(msg.author) && command in adminMessageHandlers) {
-        const handleMessage = adminMessageHandlers[command];
-        handleMessage(msg);
-    } else if (command in messageHandlers) {
-        const handleMessage = messageHandlers[command];
-        handleMessage(msg);
-    }
-});
+// const loadSession = () => {
+//     // load session from REST API
+// };
