@@ -1,9 +1,10 @@
 require("dotenv").config();
 const Discord = require("discord.js");
 const { commandPrefix, allowedChannels } = require("./config.json");
-const global = require("./global");
+const { global } = require("./global");
 
-const client = global.set("bot", new Discord.Client());
+global().bot = new Discord.Client();
+const client = global().bot;
 client.login(process.env.BOT_TOKEN);
 
 client.on("ready", () => console.log(`Logged in as ${client.user.tag}!`));
@@ -21,7 +22,7 @@ const parseMessage = (msg) => {
     messageBody = messageBody.split(" ");
     return { hasPrefix, command: messageBody[0], arguments: messageBody.slice(1) };
 };
-let locked = true;
+global().locked = true;
 const loadSession = () => {
     // load session from REST API
 };
@@ -43,12 +44,12 @@ const messageHandlers = {
 
 const adminMessageHandlers = {
     lock: (msg) => {
-        locked = true;
+        global().locked = true;
         msg.reply("TrommelBot gesperrt. Diktatur!");
     },
     unlock: (msg) => {
         if (userIsAdmin(msg.author)) {
-            locked = false;
+            global().locked = false;
             msg.reply("TrommelBot entsperrt. Anarchie!");
         }
     },
@@ -63,7 +64,7 @@ client.on("message", (msg) => {
 
     if (msg.author.bot) return;
     if (!hasPrefix) return;
-    if (locked && !userIsAdmin(msg.author)) return;
+    if (global().locked && !userIsAdmin(msg.author)) return;
     if (onlyAllowedChannels() && !channelAllowed(msg.channel)) return;
 
     if (userIsAdmin(msg.author) && command in adminMessageHandlers) {
