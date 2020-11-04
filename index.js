@@ -66,8 +66,6 @@ client.on("message", (msg) => {
     if (locked && !userIsAdmin(msg.author)) return;
     if (onlyAllowedChannels() && !channelAllowed(msg.channel)) return;
 
-    console.log(parseMessage(msg));
-
     if (userIsAdmin(msg.author) && command in adminMessageHandlers) {
         const handleMessage = adminMessageHandlers[command];
         handleMessage(msg);
