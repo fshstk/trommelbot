@@ -1,4 +1,4 @@
 {
-    "onlyAdmin": true,
-    "commandPrefix": "tk "
+    "allowedChannels": [],
+    "commandPrefix": ""
 }
