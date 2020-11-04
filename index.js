@@ -1,8 +1,9 @@
 require("dotenv").config();
 const Discord = require("discord.js");
 const { commandPrefix, allowedChannels } = require("./config.json");
+const global = require("./global");
 
-const client = new Discord.Client();
+const client = global.set("bot", new Discord.Client());
 client.login(process.env.BOT_TOKEN);
 
 client.on("ready", () => console.log(`Logged in as ${client.user.tag}!`));
