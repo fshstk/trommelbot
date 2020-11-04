@@ -1,5 +1,4 @@
 require("dotenv").config();
-const ytdl = require("ytdl-core");
 const Discord = require("discord.js");
 const { commandPrefix, allowedChannels } = require("./config.json");
 
