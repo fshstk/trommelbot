@@ -10,6 +10,7 @@ const { global } = require("./global");
 const {
     userIsAdmin, onlyAllowedChannels, channelAllowed, parseMessage,
 } = require("./helper_functions");
+const { playURL } = require("./voice_channel");
 
 /* ========================================================================== */
 
@@ -36,6 +37,10 @@ const adminCommands = {
     sesh: (msg) => {
         msg.channel.send("Listening Party!");
         // loadSession();
+    },
+    play: (msg) => {
+        const urlString = parseMessage(msg).arguments[0];
+        playURL(urlString);
     },
 };
 
