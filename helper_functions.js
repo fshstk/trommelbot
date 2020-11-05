@@ -1,6 +1,8 @@
+const { global } = require("./global");
+
 const { allowedChannels, commandPrefix } = require("./config.json");
 
-exports.userIsAdmin = (user) => user.id === process.env.ADMIN_ID;
+exports.userIsAdmin = (user) => user === global().adminUser;
 exports.onlyAllowedChannels = () => allowedChannels.length > 0;
 exports.channelAllowed = (channel) => allowedChannels.includes(channel.name);
 
