@@ -1,5 +1,6 @@
-const { global } = require("./global");
+const fetch = require("node-fetch");
 
+const { global } = require("./global");
 const { allowedChannels, commandPrefix } = require("./config.json");
 
 exports.userIsAdmin = (user) => user === global().adminUser;
@@ -23,4 +24,42 @@ exports.parseMessage = (msg) => {
         arguments: messageBody.slice(1),
         raw: msg,
     };
+};
+
+exports.loadSession = (slug) => {
+    const query = JSON.stringify({
+        query: `
+            {
+                session(slug: "${slug}") {
+                    date
+                    url
+                    challenge {
+                        name
+                        blurb
+                    }
+                    tracks {
+                        id
+                        name
+                        artist
+                        duration
+                        sessionSubsection
+                        url
+                    }
+                }
+            }
+        `,
+    });
+    // const apiUrl = "https://www.trommelkreis.club/api";
+    const apiUrl = "http://localhost:5000/api";
+    const response = fetch(apiUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        body: query,
+    })
+        .then((r) => r.json())
+        .then((r) => r.data.session);
+    return response;
 };
