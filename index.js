@@ -8,7 +8,6 @@ const {
 } = process.env;
 
 global().bot = new Discord.Client({ disableMentions: "everyone" });
-global().bot.login(BOT_TOKEN);
 
 global().locked = true;
 global().prefix = commandPrefix;
@@ -29,3 +28,4 @@ global().bot.on("ready", async () => {
 global().bot.on("debug", (msg) => {
     if (DEBUG === "1") console.log(msg);
 });
+global().bot.login(BOT_TOKEN);
