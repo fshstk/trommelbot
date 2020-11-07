@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 const { global } = require("./global");
 const {
-    userIsAdmin, onlyAllowedChannels, channelAllowed, parseMessage,
+    userIsAdmin, onlyAllowedChannels, channelAllowed, parseMessage, loadSession,
 } = require("./helper_functions");
 const { playURL } = require("./voice_channel");
 
@@ -50,9 +50,21 @@ const adminCommands = {
         global().locked = false;
         return msg.reply("TrommelBot entsperrt. Anarchie!");
     },
-    sesh: (msg) => {
-        msg.channel.send("Listening Party!");
-        // loadSession();
+    sesh: async (msg) => {
+        msg.reply("ich suche die Session, bitte kurz warten…");
+
+        const slug = parseMessage(msg).arguments[0];
+        const session = await loadSession(slug);
+        if (!session) {
+            return msg.channel.send("Keine Session mit diesem Datum gefunden… benutze das Format `YYYYMMDD`, so wie im URL auf der Webseite.");
+        }
+        global().session = session;
+        // console.log(global().session);
+
+        const reply = new MessageEmbed()
+            .setTitle(session.challenge.name)
+            .setDescription(session.challenge.blurb);
+        return msg.channel.send(reply);
     },
     play: (msg) => {
         const urlString = parseMessage(msg).arguments[0];
