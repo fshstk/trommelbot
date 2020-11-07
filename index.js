@@ -7,8 +7,8 @@ const {
     BOT_TOKEN, ADMIN_ID, CHANNEL_ID, DEBUG,
 } = process.env;
 
-global().bot = new Discord.Client({ disableMentions: "everyone" });
 
+global().bot = new Discord.Client();
 global().locked = true;
 global().prefix = commandPrefix;
 
