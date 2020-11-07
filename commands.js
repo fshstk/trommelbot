@@ -50,22 +50,20 @@ const adminCommands = {
         global().locked = false;
         return msg.reply("TrommelBot entsperrt. Anarchie!");
     },
-    sesh: async (msg) => {
-        msg.reply("ich suche die Session, bitte kurz warten…");
-
+    sesh: (msg) => msg.reply("ich suche die Session, bitte kurz warten…").then(async (response) => {
         const slug = parseMessage(msg).arguments[0];
         const session = await loadSession(slug);
         if (!session) {
-            return msg.channel.send("Keine Session mit diesem Datum gefunden… benutze das Format `YYYYMMDD`, so wie im URL auf der Webseite.");
+            return response.edit("Keine Session mit diesem Datum gefunden… benutze das Format `YYYYMMDD`, so wie im URL auf der Webseite.");
         }
         global().session = session;
         // console.log(global().session);
 
-        const reply = new MessageEmbed()
+        response.edit("Session geladen:");
+        return response.edit(new MessageEmbed()
             .setTitle(session.challenge.name)
-            .setDescription(session.challenge.blurb);
-        return msg.channel.send(reply);
-    },
+            .setDescription(session.challenge.blurb));
+    }),
     play: (msg) => {
         const urlString = parseMessage(msg).arguments[0];
         playURL(urlString);
