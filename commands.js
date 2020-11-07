@@ -15,9 +15,7 @@ const { playURL } = require("./voice_channel");
 /* ========================================================================== */
 
 const regularCommands = {
-    trommel: (msg) => {
-        msg.channel.send("...kreis!");
-    },
+    trommel: (msg) => msg.channel.send("...kreis!"),
     info: (msg) => {
         msg.reply(infoText);
     },
