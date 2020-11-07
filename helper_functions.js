@@ -15,11 +15,11 @@ exports.parseMessage = (msg) => {
         messageBody = messageBody.slice(commandPrefix.length);
     }
 
-    messageBody = messageBody.split(" ");
+    messageBody = messageBody.trim().split(/ +/);
 
     return {
         hasPrefix,
-        command: messageBody[0],
+        command: messageBody[0].toLowerCase(),
         arguments: messageBody.slice(1),
         raw: msg,
     };
