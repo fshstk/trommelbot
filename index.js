@@ -24,7 +24,4 @@ global().bot
         global().bot.user.setActivity("message", { type: "CUSTOM_STATUS" }); // not sure if works
     });
 
-// const loadSession = () => {
-//     // load session from REST API
-// };
 global().bot.login(BOT_TOKEN);
