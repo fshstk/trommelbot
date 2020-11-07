@@ -44,13 +44,11 @@ const regularCommands = {
 const adminCommands = {
     lock: (msg) => {
         global().locked = true;
-        msg.reply("TrommelBot gesperrt. Diktatur!");
+        return msg.reply("TrommelBot gesperrt. Diktatur!");
     },
     unlock: (msg) => {
-        if (userIsAdmin(msg.author)) {
-            global().locked = false;
-            msg.reply("TrommelBot entsperrt. Anarchie!");
-        }
+        global().locked = false;
+        return msg.reply("TrommelBot entsperrt. Anarchie!");
     },
     sesh: (msg) => {
         msg.channel.send("Listening Party!");
@@ -74,9 +72,9 @@ global().bot.on("message", (msg) => {
 
     if (userIsAdmin(msg.author) && command in adminCommands) {
         const handleMessage = adminCommands[command];
-        handleMessage(msg);
+        handleMessage(msg).catch(console.error);
     } else if (command in regularCommands) {
         const handleMessage = regularCommands[command];
-        handleMessage(msg);
+        handleMessage(msg).catch(console.error);
     }
 });
