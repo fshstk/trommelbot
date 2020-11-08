@@ -38,7 +38,6 @@ exports.loadSession = (slug) => {
                         blurb
                     }
                     tracks {
-                        id
                         name
                         artist
                         duration
