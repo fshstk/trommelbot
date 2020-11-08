@@ -25,11 +25,11 @@ const regularCommands = {
 
             **Verfügbare Commands:** (TrommelBot)
             ‣ \`${global().prefix}info\`: diese Nachricht anzeigen
-            ‣ \`${global().prefix}sesh load\`: lade die heutige Session.
-            ‣ \`${global().prefix}sesh load [YYYYMMDD]\`: lade die Session des angegebenen Datums.
-            ‣ \`${global().prefix}sesh load [URL]\`: lade die Session der angegebenen URL.
-            ‣ \`${global().prefix}sesh info\`: Informationen zur aktuell geladenen Session
-            ‣ \`${global().prefix}sesh next\`: Spiele das nächste Lied der aktuell geladenen Session.
+            ‣ \`${global().prefix}sesh\`: lade die heutige Session.
+            ‣ \`${global().prefix}sesh [YYYYMMDD]\`: lade die Session des angegebenen Datums.
+            ‣ \`${global().prefix}next\`: Spiele das nächste Lied der aktuell geladenen Session.
+            ‣ \`${global().prefix}restart\`: Spiele das aktuelle Lied von vorne.
+            ‣ \`${global().prefix}prev\`: Spiele das vorige Lied der aktuell geladenen Session.
             ‣ \`${global().prefix}play/pause\`: Play/Pause
             ‣ \`${global().prefix}stop\`: Stopp, vergesse die aktuell geladene Session.
 
