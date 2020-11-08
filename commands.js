@@ -59,7 +59,7 @@ const adminCommands = {
         else slug.match(/\d{8}/); // match first group of 8 digits in input argument
         const session = await loadSession(slug);
         if (!session) {
-            return response.edit("Keine Session mit diesem Datum gefunden… benutze das Format `YYYYMMDD`, so wie im URL auf der Webseite.");
+            return response.edit("Keine Session gefunden… Format: `YYYYMMDD` oder die ganze `URL` aus dem Archiv.");
         }
         global().session = session;
         // console.log(global().session);
