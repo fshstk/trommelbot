@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js");
+const moment = require("moment");
 
 const { global } = require("./global");
 const {
@@ -52,7 +53,8 @@ const adminCommands = {
         return msg.reply("TrommelBot entsperrt. Anarchie!");
     },
     sesh: (msg) => msg.reply("ich suche die Session, bitte kurz warten…").then(async (response) => {
-        const slug = parseMessage(msg).arguments[0];
+        let slug = parseMessage(msg).arguments[0];
+        if (!slug) slug = moment().format("YYYYMMDD");
         const session = await loadSession(slug);
         if (!session) {
             return response.edit("Keine Session mit diesem Datum gefunden… benutze das Format `YYYYMMDD`, so wie im URL auf der Webseite.");
