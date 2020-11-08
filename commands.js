@@ -36,7 +36,8 @@ const regularCommands = {
             ‣ \`!help\`: Hilfetext anzeigen
             ‣ \`!play [URL]\`: Link abspielen (YouTube / SoundCloud / MP3)
             ‣ \`!pause/stop\`: Pause / Stopp
-            `);
+            `)
+            .setFooter("https://github.com/fshstk/trommelbot");
         return msg.channel.send(reply);
     },
 };
