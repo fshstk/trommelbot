@@ -61,8 +61,20 @@ const adminCommands = {
 
         response.edit("Session geladen:");
         return response.edit(new MessageEmbed()
+            .setColor("#FF0000")
             .setTitle(session.challenge.name)
-            .setDescription(session.challenge.blurb));
+            .setURL(session.url)
+            .setDescription(session.challenge.blurb)
+            .addFields(
+                ...session.tracks.map(
+                    (track, index) => ({
+                        name: `Track ${index + 1}`,
+                        value: `${track.name} [${track.duration}]`,
+                        inline: false,
+                    }),
+                ),
+            )
+            .setFooter(session.date));
     }),
     play: (msg) => {
         const urlString = parseMessage(msg).arguments[0];
