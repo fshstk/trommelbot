@@ -10,7 +10,7 @@ const { playURL } = require("./voice_channel");
 /* ========================================================================== */
 
 const regularCommands = {
-    trommel: (msg) => msg.channel.send("…kreis!"),
+    trommel: (msg) => msg.channel.send("…kreis! 🥁"),
     info: (msg) => {
         const reply = new MessageEmbed()
             .setColor("#FF0000")
@@ -23,7 +23,7 @@ const regularCommands = {
             ‣ Wenn ihr mitmachen wollt, lohnt es sich der [WhatsApp Gruppe](https://chat.whatsapp.com/IuA760mHIrcKiR3krPjBwK) beizutreten.
             ‣ Jeder ist willkommen!
 
-            **Verfügbare Commands:** (TrommelBot)
+            **Verfügbare Commands:** ([TrommelBot](https://github.com/fshstk/trommelbot))
             ‣ \`${global().prefix}trommel\`: …kreis!
             ‣ \`${global().prefix}info\`: diese Nachricht anzeigen.
             ‣ \`${global().prefix}sesh\`: lade die heutige Session.
@@ -39,7 +39,7 @@ const regularCommands = {
             ‣ \`!play [URL]\`: Link abspielen (YouTube / SoundCloud / MP3)
             ‣ \`!pause/stop\`: Pause / Stopp
             `)
-            .setFooter("https://github.com/fshstk/trommelbot");
+            .setFooter("Fabian Hummel | github.com/fshstk/trommelbot");
         return msg.channel.send(reply);
     },
 };
