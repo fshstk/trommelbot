@@ -27,11 +27,11 @@ const regularCommands = {
             ‣ \`${global().prefix}info\`: diese Nachricht anzeigen
             ‣ \`${global().prefix}sesh\`: lade die heutige Session.
             ‣ \`${global().prefix}sesh [YYYYMMDD]\`: lade die Session des angegebenen Datums.
-            ‣ \`${global().prefix}next\`: Spiele das nächste Lied der aktuell geladenen Session.
-            ‣ \`${global().prefix}restart\`: Spiele das aktuelle Lied von vorne.
-            ‣ \`${global().prefix}prev\`: Spiele das vorige Lied der aktuell geladenen Session.
-            ‣ \`${global().prefix}play/pause\`: Play/Pause
-            ‣ \`${global().prefix}stop\`: Stopp, vergesse die aktuell geladene Session.
+            ‣ \`${global().prefix}next\`: spiele das nächste Lied der aktuell geladenen Session.
+            ‣ \`${global().prefix}restart\`: spiele das aktuelle Lied von vorne.
+            ‣ \`${global().prefix}prev\`: spiele das vorige Lied der aktuell geladenen Session.
+            ‣ \`${global().prefix}play/pause\`: play/pause
+            ‣ \`${global().prefix}stop\`: stopp, vergesse die aktuell geladene Session.
 
             **Verfügbare Commands**: ([MEE6](https://mee6.xyz/))
             ‣ \`!help\`: Hilfetext anzeigen
