@@ -67,6 +67,7 @@ const adminCommands = {
             .setURL(session.url)
             .setDescription(session.challenge.blurb)
             .addFields(
+                // TODO: multiple session subsections
                 ...session.tracks.map(
                     (track, index) => ({
                         name: `Track ${index + 1}`,
