@@ -16,10 +16,6 @@ const playFileAndCleanup = (connection, file) => {
     dispatcher.on("end", () => cleanup(file));
 };
 
-// const downloadMP3 = () => {
-//     const file = "./test.mp3"; // TODO: implement this
-//     return file;
-// };
 
 exports.playURL = (urlString) => {
     assertChannelPermissions();
