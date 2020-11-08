@@ -3,11 +3,14 @@ const Discord = require("discord.js");
 const { commandPrefix } = require("./config.json");
 const { global } = require("./global");
 
-const { BOT_TOKEN, ADMIN_ID, CHANNEL_ID } = process.env;
+const {
+    BOT_TOKEN, ADMIN_ID, CHANNEL_ID, API_URL,
+} = process.env;
 
 global().bot = new Discord.Client();
 global().locked = true;
 global().prefix = commandPrefix;
+global().apiUrl = API_URL;
 
 require("./commands");
 const { confirmVoiceChannelSetup } = require("./voice_channel");

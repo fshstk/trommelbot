@@ -48,9 +48,7 @@ exports.loadSession = (slug) => {
             }
         `,
     });
-    // const apiUrl = "https://www.trommelkreis.club/api";
-    const apiUrl = "http://localhost:5000/api";
-    const response = fetch(apiUrl, {
+    const response = fetch(global().apiUrl, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
