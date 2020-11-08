@@ -1,10 +1,8 @@
 const { global } = require("./global");
 
-const { bot } = global();
-
 exports.confirmVoiceChannelSetup = () => {
     if (!global().voiceChannel) throw Error("no voice channel specified");
-    const permissions = global().voiceChannel.permissionsFor(bot.user);
+    const permissions = global().voiceChannel.permissionsFor(global().bot.user);
     if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) throw Error("insufficient privileges");
 };
 
