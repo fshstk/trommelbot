@@ -10,7 +10,7 @@ const { playURL } = require("./voice_channel");
 /* ========================================================================== */
 
 const regularCommands = {
-    trommel: (msg) => msg.channel.send("...kreis!"),
+    trommel: (msg) => msg.channel.send("…kreis!"),
     info: (msg) => {
         const reply = new MessageEmbed()
             .setColor("#FF0000")
@@ -24,7 +24,8 @@ const regularCommands = {
             ‣ Jeder ist willkommen!
 
             **Verfügbare Commands:** (TrommelBot)
-            ‣ \`${global().prefix}info\`: diese Nachricht anzeigen
+            ‣ \`${global().prefix}trommel\`: …kreis!
+            ‣ \`${global().prefix}info\`: diese Nachricht anzeigen.
             ‣ \`${global().prefix}sesh\`: lade die heutige Session.
             ‣ \`${global().prefix}sesh [YYYYMMDD]\`: lade die Session des angegebenen Datums.
             ‣ \`${global().prefix}next\`: spiele das nächste Lied der aktuell geladenen Session.
