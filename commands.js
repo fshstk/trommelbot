@@ -84,19 +84,17 @@ const regularCommands = {
     play: (msg) => {
         const { session } = global();
         if (!session) return msg.channel.send("Keine Session geladen! (Lade eine Session mit `sesh [YYYYMMDD oder URL]`");
-        if (!session.currentTrackId) session.currentTrackId = 0;
+        // init with -1 since this is immediately incremented by play function:
+        if (!session.currentTrackId) session.currentTrackId = -1;
 
         const argument = parseMessage(msg).arguments[0];
+        if (!argument) {
+            if (!global().isPlaying) session.currentTrackId += 1;
+        }
         if (argument === "next") {
             session.currentTrackId += 1;
-            if (session.currentTrackId >= session.tracks.length) {
-                global().session = null;
-                stopPlaying();
-                return msg.channel.send("⏹ Ende der Playlist.");
-            }
         } else if (argument === "prev") {
             session.currentTrackId -= 1;
-            if (session.currentTrackId < 0) session.currentTrackId = 0;
         } else if (argument % 1 === 0) { // check if whole number
             if (argument < 1 || argument > session.tracks.length) {
                 return msg.reply(`Deine Auswahl muss zwischen 1 und ${session.tracks.length} sein…`);
@@ -104,6 +102,13 @@ const regularCommands = {
             session.currentTrackId = argument - 1;
         } else if (argument) {
             return msg.reply("i versteh ned wost wüst…");
+        }
+
+        if (session.currentTrackId < 0) session.currentTrackId = 0;
+        if (session.currentTrackId >= session.tracks.length) {
+            global().session = null;
+            stopPlaying();
+            return msg.channel.send("⏹ Ende der Playlist.");
         }
 
         const track = session.tracks[session.currentTrackId];
