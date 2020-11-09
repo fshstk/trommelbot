@@ -5,7 +5,7 @@ const { global } = require("./global");
 const {
     userIsAdmin, onlyAllowedChannels, channelAllowed, parseMessage, loadSession,
 } = require("./helper_functions");
-const { playURL } = require("./voice_channel");
+const { playURL, stopPlaying } = require("./voice_channel");
 
 /* ========================================================================== */
 
@@ -91,25 +91,38 @@ const adminCommands = {
     play: (msg) => {
         const { session } = global();
         if (!session) return msg.channel.send("Keine Session geladen! (Lade eine Session mit `sesh [YYYYMMDD oder URL]`");
+        if (!session.currentTrackId) session.currentTrackId = 0;
 
         const argument = parseMessage(msg).arguments[0];
-        if (!argument) {
-            // TODO: play
-            return msg.channel.send("play");
-        } if (argument === "next") {
-            // TODO: play next
-            return msg.channel.send("play next");
-        } if (argument === "restart") {
-            // TODO: play restart
-            return msg.channel.send("play restart");
-        } if (argument === "prev") {
-            // TODO: play prev
-            return msg.channel.send("play prev");
-        } if (argument % 1 === 0) { // check if whole number
-            // TODO: play #
-            return msg.channel.send("play #");
+        if (argument === "next") {
+            session.currentTrackId += 1;
+            if (session.currentTrackId >= session.tracks.length) {
+                global().session = null;
+                stopPlaying();
+                return msg.channel.send("⏹ Ende der Playlist.");
+            }
+        } else if (argument === "prev") {
+            session.currentTrackId -= 1;
+            if (session.currentTrackId < 0) session.currentTrackId = 0;
+        } else if (argument % 1 === 0) { // check if whole number
+            if (argument < 1 || argument > session.tracks.length) {
+                return msg.reply(`Deine Auswahl muss zwischen 1 und ${session.tracks.length} sein…`);
+            }
+            session.currentTrackId = argument - 1;
+        } else if (argument) {
+            return msg.reply("i versteh ned wost wüst…");
         }
-        return msg.channel.send("I versteh ned wost wüst…");
+
+        const track = session.tracks[session.currentTrackId];
+        playURL(track.url);
+        return msg.channel.send(`▶️ ${track.name} (${track.duration})`);
+    },
+    stop: (msg) => {
+        if (global().isPlaying) {
+            stopPlaying();
+            return msg.channel.send("⏹ Stopp.");
+        }
+        return msg.reply("es spielt nix…");
     },
 };
 
