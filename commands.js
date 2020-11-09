@@ -42,17 +42,6 @@ const regularCommands = {
             .setFooter("Fabian Hummel | github.com/fshstk/trommelbot");
         return msg.channel.send(reply);
     },
-};
-
-const adminCommands = {
-    lock: (msg) => {
-        global().locked = true;
-        return msg.reply("TrommelBot gesperrt. Diktatur!");
-    },
-    unlock: (msg) => {
-        global().locked = false;
-        return msg.reply("TrommelBot entsperrt. Anarchie!");
-    },
     sesh: (msg) => msg.reply("ich suche die Session, bitte kurz warten…").then(async (response) => {
         let slug = parseMessage(msg).arguments[0];
         if (!slug) slug = moment().format("YYYYMMDD");
@@ -122,6 +111,17 @@ const adminCommands = {
             return msg.channel.send("⏹ Stopp.");
         }
         return msg.reply("es spielt nix…");
+    },
+};
+
+const adminCommands = {
+    lock: (msg) => {
+        global().locked = true;
+        return msg.reply("TrommelBot gesperrt. Diktatur!");
+    },
+    unlock: (msg) => {
+        global().locked = false;
+        return msg.reply("TrommelBot entsperrt. Anarchie!");
     },
 };
 
