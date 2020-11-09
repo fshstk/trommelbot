@@ -1,6 +1,7 @@
 {
     "allowedChannels": [
-        "trommelkreis"
+        "trommelkreis",
+        "digitaler-trommelkreis"
     ],
     "commandPrefix": ""
 }
