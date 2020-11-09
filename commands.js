@@ -28,6 +28,7 @@ const regularCommands = {
             ‣ \`${global().prefix}info\`: diese Nachricht anzeigen.
             ‣ \`${global().prefix}sesh\`: lade die heutige Session.
             ‣ \`${global().prefix}sesh [YYYYMMDD oder URL]\`: lade die angegebene Session.
+            ‣ \`${global().prefix}sesh forget\`: vergesse die aktuell geladene Session.
             ‣ \`${global().prefix}play\`: spiele den aktuellen Track von vorne.
             ‣ \`${global().prefix}play next\`: spiele den nächsten Track der aktuell geladenen Session.
             ‣ \`${global().prefix}play prev\`: spiele den vorigen Track der aktuell geladenen Session.
@@ -44,6 +45,10 @@ const regularCommands = {
     },
     sesh: (msg) => msg.reply("ich suche die Session, bitte kurz warten…").then(async (response) => {
         let slug = parseMessage(msg).arguments[0];
+        if (slug === "forget") {
+            global().session = null;
+            return response.edit("Session vergessen.");
+        }
         if (!slug) slug = moment().format("YYYYMMDD");
         else {
             try {
