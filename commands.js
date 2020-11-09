@@ -37,7 +37,7 @@ const regularCommands = {
             **Verfügbare Commands**: ([MEE6](https://mee6.xyz/))
             ‣ \`!help\`: Hilfetext anzeigen
             ‣ \`!play [URL]\`: Link abspielen (YouTube / SoundCloud / MP3)
-            ‣ \`!pause/stop\`: Pause / Stopp
+            ‣ \`!pause/stop\`: pause / stopp
             `)
             .setFooter("Fabian Hummel | github.com/fshstk/trommelbot");
         return msg.channel.send(reply);
