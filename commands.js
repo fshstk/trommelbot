@@ -63,7 +63,6 @@ const adminCommands = {
             return response.edit("Keine Session gefunden… Format: `YYYYMMDD` oder die ganze `URL` aus dem Archiv.");
         }
         global().session = session;
-        // console.log(global().session);
 
         response.edit("Session geladen:");
         return response.edit(new MessageEmbed()
