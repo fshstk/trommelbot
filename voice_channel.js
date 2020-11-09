@@ -6,25 +6,22 @@ exports.confirmVoiceChannelSetup = () => {
     if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) throw Error("insufficient privileges");
 };
 
-const cleanup = () => {
-    global().voiceChannel.leave();
-    // file.delete(); // TODO: implement this
-};
-
-const playFileAndCleanup = (connection, file) => {
-    const dispatcher = connection.play(file);
-    dispatcher.on("end", () => cleanup(file));
-};
-
-
 exports.playURL = (urlString) => {
-    assertChannelPermissions();
-    // const file = downloadMP3(urlString);
+    exports.confirmVoiceChannelSetup();
+
     global().voiceChannel.join()
-        .then((connection) => playFileAndCleanup(connection, urlString))
-        .catch((error) => console.log(error));
+        .then((connection) => {
+            global().isPlaying = true;
+            connection.play(urlString).on("finish", exports.stopPlaying);
+        })
+        .catch((error) => {
+            global().voiceChannel.leave();
+            console.error(error);
+            throw Error("Ich kann das nicht abspielen. :("); // TODO: make this better
+        });
 };
 
-exports.stop = () => {
-
+exports.stopPlaying = () => {
+    global().isPlaying = false;
+    global().voiceChannel.leave();
 };
