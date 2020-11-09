@@ -57,7 +57,13 @@ const adminCommands = {
     sesh: (msg) => msg.reply("ich suche die Session, bitte kurz warten…").then(async (response) => {
         let slug = parseMessage(msg).arguments[0];
         if (!slug) slug = moment().format("YYYYMMDD");
-        else slug.match(/\d{8}/); // match first group of 8 digits in input argument
+        else {
+            try {
+                [slug] = slug.match(/\d{8}/); // match first group of 8 digits in input argument
+            } catch {
+                return response.edit("Keine Session gefunden… Format: `YYYYMMDD` oder die ganze `URL` aus dem Archiv.");
+            }
+        }
         const session = await loadSession(slug);
         if (!session) {
             return response.edit("Keine Session gefunden… Format: `YYYYMMDD` oder die ganze `URL` aus dem Archiv.");
