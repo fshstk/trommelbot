@@ -17,7 +17,6 @@ exports.playURL = (urlString) => {
         .catch((error) => {
             global().voiceChannel.leave();
             console.error(error);
-            throw Error("Ich kann das nicht abspielen. :("); // TODO: make this better
         });
 };
 
