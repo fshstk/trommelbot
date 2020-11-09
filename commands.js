@@ -84,8 +84,27 @@ const adminCommands = {
             .setFooter(session.date));
     }),
     play: (msg) => {
-        const urlString = parseMessage(msg).arguments[0];
-        playURL(urlString);
+        const { session } = global();
+        if (!session) return msg.channel.send("Keine Session geladen! (Lade eine Session mit `sesh [YYYYMMDD oder URL]`");
+
+        const argument = parseMessage(msg).arguments[0];
+        if (!argument) {
+            // TODO: play
+            return msg.channel.send("play");
+        } if (argument === "next") {
+            // TODO: play next
+            return msg.channel.send("play next");
+        } if (argument === "restart") {
+            // TODO: play restart
+            return msg.channel.send("play restart");
+        } if (argument === "prev") {
+            // TODO: play prev
+            return msg.channel.send("play prev");
+        } if (argument % 1 === 0) { // check if whole number
+            // TODO: play #
+            return msg.channel.send("play #");
+        }
+        return msg.channel.send("I versteh ned wost wüst…");
     },
 };
 
