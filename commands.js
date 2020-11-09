@@ -28,12 +28,11 @@ const regularCommands = {
             ‣ \`${global().prefix}info\`: diese Nachricht anzeigen.
             ‣ \`${global().prefix}sesh\`: lade die heutige Session.
             ‣ \`${global().prefix}sesh [YYYYMMDD oder URL]\`: lade die angegebene Session.
-            TODO: ‣ \`${global().prefix}play/pause\`: play/pause
-            TODO: ‣ \`${global().prefix}play next\`: spiele den nächsten Track der aktuell geladenen Session.
-            TODO: ‣ \`${global().prefix}play restart\`: spiele den aktuellen Track von vorne.
-            TODO: ‣ \`${global().prefix}play prev\`: spiele den vorigen Track der aktuell geladenen Session.
-            TODO: ‣ \`${global().prefix}play [#]\`: spiele Track Nummer \`#\`.
-            TODO: ‣ \`${global().prefix}stop\`: stopp, vergesse die aktuell geladene Session.
+            ‣ \`${global().prefix}play\`: spiele den aktuellen Track von vorne.
+            ‣ \`${global().prefix}play next\`: spiele den nächsten Track der aktuell geladenen Session.
+            ‣ \`${global().prefix}play prev\`: spiele den vorigen Track der aktuell geladenen Session.
+            ‣ \`${global().prefix}play [#]\`: spiele Track Nummer \`#\`.
+            ‣ \`${global().prefix}stop\`: stopp, vergesse die aktuell geladene Session.
 
             **Verfügbare Commands**: ([MEE6](https://mee6.xyz/))
             ‣ \`!help\`: Hilfetext anzeigen
