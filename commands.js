@@ -102,7 +102,10 @@ global().bot.on("message", (msg) => {
     if (userIsAdmin(msg.author) && command in adminCommands) {
         const handleMessage = adminCommands[command];
         handleMessage(msg).catch(console.error);
-    } else if (command in regularCommands) {
+    } else if (
+        (command in regularCommands)
+        && (userIsAdmin(msg.author) || !global().locked)
+    ) {
         const handleMessage = regularCommands[command];
         handleMessage(msg).catch(console.error);
     }
