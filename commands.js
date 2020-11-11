@@ -85,7 +85,7 @@ const regularCommands = {
         const { session } = global();
         if (!session) return msg.channel.send("Keine Session geladen! (Lade eine Session mit `sesh [YYYYMMDD oder URL]`");
         // init with -1 since this is immediately incremented by play function:
-        if (!session.currentTrackId) session.currentTrackId = -1;
+        if (!session.currentTrackId && session.currentTrackId !== 0) session.currentTrackId = -1;
 
         const argument = parseMessage(msg).arguments[0];
         if (!argument) {
