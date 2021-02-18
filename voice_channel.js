@@ -21,6 +21,7 @@ exports.playURL = (urlString) => {
 };
 
 exports.stopPlaying = () => {
+    console.log("stopPlaying() called");
     global().isPlaying = false;
     global().voiceChannel.leave();
 };
