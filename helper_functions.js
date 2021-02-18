@@ -14,6 +14,12 @@ exports.parseMessage = (msg) => {
     if (messageBody.startsWith(commandPrefix)) {
         hasPrefix = true;
         messageBody = messageBody.slice(commandPrefix.length);
+        console.log(`Number of attachments in command: ${message.attachments.size}`);
+        if (message.attachments.size === 1) {
+            let file = message.attachments[0];
+            console.log("Attachment detected!");
+            console.log(`URL: ${file.url}`);
+        }
     }
 
     messageBody = messageBody.trim().split(/ +/);
