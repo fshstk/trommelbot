@@ -10,24 +10,23 @@ exports.channelAllowed = (channel) => allowedChannels.includes(channel.name);
 exports.parseMessage = (msg) => {
     let hasPrefix = false;
     let messageBody = msg.content;
+    let files = [];
 
     if (messageBody.startsWith(commandPrefix)) {
         hasPrefix = true;
         messageBody = messageBody.slice(commandPrefix.length);
-        console.log(`Number of attachments in command: ${msg.attachments.size}`);
-        if (msg.attachments.size === 1) {
-            let file = msg.attachments[0];
-            console.log("Attachment detected!");
-            console.log(`URL: ${file.url}`);
-        }
     }
 
     messageBody = messageBody.trim().split(/ +/);
+
+    if (msg.attachments.size > 0)
+        msg.attachments.forEach(file => files.push(file))
 
     return {
         hasPrefix,
         command: messageBody[0].toLowerCase(),
         arguments: messageBody.slice(1),
+        files,
         raw: msg,
     };
 };
