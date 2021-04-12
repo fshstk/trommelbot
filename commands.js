@@ -3,7 +3,7 @@ const moment = require("moment");
 
 const { global } = require("./global");
 const {
-    userIsAdmin, onlyAllowedChannels, channelAllowed, parseMessage, loadSession,
+    userIsAdmin, channelAllowed, parseMessage, loadSession,
 } = require("./helper_functions");
 const { playURL, stopPlaying } = require("./voice_channel");
 
@@ -24,16 +24,16 @@ const regularCommands = {
             ‣ Jeder ist willkommen!
 
             **Verfügbare Commands:** ([TrommelBot](https://github.com/fshstk/trommelbot))
-            ‣ \`${global().prefix}trommel\`: …kreis!
-            ‣ \`${global().prefix}info\`: diese Nachricht anzeigen.
-            ‣ \`${global().prefix}sesh\`: lade die heutige Session.
-            ‣ \`${global().prefix}sesh [YYYYMMDD oder URL]\`: lade die angegebene Session.
-            ‣ \`${global().prefix}sesh forget\`: vergesse die aktuell geladene Session.
-            ‣ \`${global().prefix}play\`: spiele den aktuellen Track von vorne.
-            ‣ \`${global().prefix}play next\`: spiele den nächsten Track der aktuell geladenen Session.
-            ‣ \`${global().prefix}play prev\`: spiele den vorigen Track der aktuell geladenen Session.
-            ‣ \`${global().prefix}play [#]\`: spiele Track Nummer \`#\`.
-            ‣ \`${global().prefix}stop\`: stopp, vergesse die aktuell geladene Session.
+            ‣ \`${global().commandPrefix}trommel\`: …kreis!
+            ‣ \`${global().commandPrefix}info\`: diese Nachricht anzeigen.
+            ‣ \`${global().commandPrefix}sesh\`: lade die heutige Session.
+            ‣ \`${global().commandPrefix}sesh [YYYYMMDD oder URL]\`: lade die angegebene Session.
+            ‣ \`${global().commandPrefix}sesh forget\`: vergesse die aktuell geladene Session.
+            ‣ \`${global().commandPrefix}play\`: spiele den aktuellen Track von vorne.
+            ‣ \`${global().commandPrefix}play next\`: spiele den nächsten Track der aktuell geladenen Session.
+            ‣ \`${global().commandPrefix}play prev\`: spiele den vorigen Track der aktuell geladenen Session.
+            ‣ \`${global().commandPrefix}play [#]\`: spiele Track Nummer \`#\`.
+            ‣ \`${global().commandPrefix}stop\`: stopp, vergesse die aktuell geladene Session.
 
             **Verfügbare Commands**: ([MEE6](https://mee6.xyz/))
             ‣ \`!help\`: Hilfetext anzeigen
@@ -143,7 +143,7 @@ global().bot.on("message", (msg) => {
     if (msg.author.bot) return;
     if (!hasPrefix) return;
     if (global().locked && !userIsAdmin(msg.author)) return;
-    if (onlyAllowedChannels() && !channelAllowed(msg.channel)) return;
+    if (!channelAllowed(msg.channel)) return;
 
     if (userIsAdmin(msg.author) && command in adminCommands) {
         const handleMessage = adminCommands[command];

@@ -1,20 +1,18 @@
 const fetch = require("node-fetch");
 
 const { global } = require("./global");
-const { allowedChannels, commandPrefix } = require("./config.json");
 
 exports.userIsAdmin = (user) => user === global().adminUser;
-exports.onlyAllowedChannels = () => allowedChannels.length > 0;
-exports.channelAllowed = (channel) => allowedChannels.includes(channel.name);
+exports.channelAllowed = (channel) => global().allowedChannel === channel.name;
 
 exports.parseMessage = (msg) => {
     let hasPrefix = false;
     let messageBody = msg.content;
     let files = [];
 
-    if (messageBody.startsWith(commandPrefix)) {
+    if (messageBody.startsWith(global().commandPrefix)) {
         hasPrefix = true;
-        messageBody = messageBody.slice(commandPrefix.length);
+        messageBody = messageBody.slice(global().commandPrefix.length);
     }
 
     messageBody = messageBody.trim().split(/ +/);

@@ -1,16 +1,16 @@
 require("dotenv").config();
 const Discord = require("discord.js");
-const { commandPrefix } = require("./config.json");
 const { global } = require("./global");
 
 const {
-    BOT_TOKEN, ADMIN_ID, CHANNEL_ID, API_URL,
+    BOT_TOKEN, ADMIN_ID, CHANNEL_ID, API_URL, COMMAND_PREFIX, ALLOWED_CHANNEL
 } = process.env;
 
 global().bot = new Discord.Client();
 global().locked = true;
-global().prefix = commandPrefix;
+global().commandPrefix = COMMAND_PREFIX;
 global().apiUrl = API_URL;
+global().allowedChannel = ALLOWED_CHANNEL
 
 require("./commands");
 const { confirmVoiceChannelSetup } = require("./voice_channel");
