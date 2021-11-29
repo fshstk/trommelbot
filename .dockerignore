@@ -12,6 +12,7 @@ README.md
 ignore
 .vscode
 .env
+.envrc
 
 node_modules
 
