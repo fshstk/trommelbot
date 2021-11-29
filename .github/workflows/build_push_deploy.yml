@@ -20,8 +20,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: fshstk/trommelbot:${{ github.sha }}
-
+          tags: |
+            fshstk/trommelbot:${{ github.sha }}
+            fshstk/trommelbot:latest
       - name: Deploy bot to trommelkreis.club
         uses: appleboy/ssh-action@master
         with:
