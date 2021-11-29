@@ -1,8 +1,8 @@
-name: Build / Push / Deploy
+name: Deploy Preview Build
 
 on:
   push:
-    branches: [ master ]
+    branches: [ develop ]
 
 jobs:
   build:
@@ -16,17 +16,17 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
-        id: docker_build
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: |
             fshstk/trommelbot:${{ github.sha }}
-            fshstk/trommelbot:latest
+            fshstk/trommelbot:preview
+
       - name: Deploy bot to trommelkreis.club
         uses: appleboy/ssh-action@master
         with:
           host: trommelkreis.club
           username: ${{ secrets.DOKKU_USERNAME }}
           key: ${{ secrets.DOKKU_PRIVATE_KEY }}
-          script: dokku git:from-image trommelbot fshstk/trommelbot:${{github.sha }}
+          script: dokku git:from-image trommelbot-dev fshstk/trommelbot:${{github.sha }}
