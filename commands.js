@@ -33,6 +33,7 @@ const regularCommands = {
             ‣ \`${global().commandPrefix}play next\`: spiele den nächsten Track der aktuell geladenen Session.
             ‣ \`${global().commandPrefix}play prev\`: spiele den vorigen Track der aktuell geladenen Session.
             ‣ \`${global().commandPrefix}play [#]\`: spiele Track Nummer \`#\`.
+            ‣ \`${global().commandPrefix}herzeigen\`: spiele einen in Discord hochgeladenen Track.
             ‣ \`${global().commandPrefix}stop\`: stopp, vergesse die aktuell geladene Session.
 
             **Verfügbare Commands**: ([MEE6](https://mee6.xyz/))
@@ -114,6 +115,29 @@ const regularCommands = {
         const track = session.tracks[session.currentTrackId];
         playURL(track.url);
         return msg.channel.send(`▶️ ${track.name} (${track.duration})`);
+    },
+    herzeigen: (msg) => {
+        if (global().isPlaying)
+            return msg.channel.send("oida ich spiel schon einen track…");
+
+        if (msg.attachments.size == 0)
+            return msg.channel.send("⚠️ Häng eine Datei an deine Nachricht");
+
+        if (msg.attachments.size > 1) {
+            debugger;
+            return msg.channel.send("⚠️ Häng NUR EINE Datei an deine Nachricht");
+        }
+
+        const url = msg.attachments.values().next().value.proxyURL;
+        const fileName = url.split("/").pop();
+        const fileSuffix = url.split(".").pop();
+
+        const allowedSuffixes = ["mp3", "wav"];
+        if (!allowedSuffixes.includes(fileSuffix))
+            return msg.channel.send("⚠️ Erlaubte Dateien: mp3, wav");
+
+        playURL(url);
+        return msg.channel.send(`▶️ ${msg.author.username} – ${fileName}`);
     },
     stop: (msg) => {
         if (global().isPlaying) {
