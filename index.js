@@ -6,7 +6,7 @@ const {
 } = process.env;
 
 global().bot = new Discord.Client();
-global().locked = true;
+global().locked = false;
 global().commandPrefix = COMMAND_PREFIX;
 global().apiUrl = API_URL;
 global().allowedChannel = ALLOWED_CHANNEL
