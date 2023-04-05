@@ -72,11 +72,11 @@ module.exports = {
 
     const embed = new EmbedBuilder()
       .setColor('#FF0000')
-      .setTitle(session.challenge.name)
-      .setURL(session.url)
-      .setDescription(session.challenge.blurb)
+      .setTitle(bot.currentSession.challenge.name)
+      .setURL(bot.currentSession.url)
+      .setDescription(bot.currentSession.challenge.blurb)
       .addFields(
-        ...session.tracks.map(
+        ...bot.currentSession.tracks.map(
           (track, index) => ({
             name: `Track ${index + 1}`,
             value: `${track.name} [${track.duration}]`,
