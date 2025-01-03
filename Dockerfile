@@ -1,4 +1,4 @@
-FROM node:20 AS develop
+FROM node:23 AS develop
 RUN apt-get update && apt-get install -y ffmpeg && apt-get clean
 USER node
 ENTRYPOINT ["bash"]
