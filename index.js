@@ -6,6 +6,28 @@ const { BOT_TOKEN } = process.env;
 const bot = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates] });
 bot.login(BOT_TOKEN);
 
+const http = require('node:http');
+const port = process.env.PORT || 3000;
+
+// Health check response
+bot.once('ready', () => {
+  const server = http.createServer((req, res) => {
+    if (req.method === 'GET' && req.url === '/health') {
+      if (bot.isReady()) {
+        res.writeHead(200);
+        res.end('OK');
+      } else {
+        res.writeHead(503);
+        res.end('Not logged in');
+      }
+    } else {
+      res.writeHead(404);
+      res.end('Not found');
+    }
+  });
+  server.listen(port, () => console.log(`Listening on port ${port}`));
+});
+
 {
   const commandsPath = path.join(__dirname, 'commands');
   const commandFiles = fs
