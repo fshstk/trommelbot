@@ -44,6 +44,7 @@ module.exports = {
     }
 
     if (!connection) {
+      console.debug("Joining voice channel");
       connection = joinVoiceChannel({
         channelId: VOICE_CHANNEL_ID,
         guildId: GUILD_ID,
@@ -56,11 +57,13 @@ module.exports = {
     const resource = createAudioResource(track.url);
     const player = createAudioPlayer({ behaviors: { noSubscriber: NoSubscriberBehavior.Play } });
 
+    console.debug(`Playing track ${track.name} (${track.duration}) @ ${track.url}`);
     connection.subscribe(player);
     player.play(resource);
 
     player.on(AudioPlayerStatus.Idle, () => {
       try {
+        console.debug("Leaving voice channel");
         connection.destroy();
       }
       catch (e) {
