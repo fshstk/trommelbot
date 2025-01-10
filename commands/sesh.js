@@ -2,43 +2,20 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const moment = require('moment');
 const { API_URL } = process.env;
 
-const loadSession = (slug) => {
-  const query = JSON.stringify({
-    query: `
-            {
-                session(slug: "${slug}") {
-                    date
-                    url
-                    challenge {
-                        name
-                        blurb
-                    }
-                    tracks {
-                        name
-                        artist
-                        duration
-                        sessionSubsection
-                        url
-                    }
-                }
-            }
-        `,
-  });
-
+const loadSession = async (slug) => {
   const fetch = (...args) => import('node-fetch')
     .then(({ default: f }) => f(...args));
 
-  const response = fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-    body: query,
-  })
-    .then((r) => r.json())
-    .then((r) => r.data.session);
-  return response;
+  const response = await fetch(`${API_URL}/sessions/${slug}`, {
+    method: 'GET',
+    headers: {Accept: 'application/json'},
+  });
+
+  if (response.status !== 200)
+    return null;
+
+  const data = await response.json();
+  return data.session;
 };
 
 module.exports = {
