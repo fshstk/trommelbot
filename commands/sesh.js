@@ -5,17 +5,14 @@ const { API_URL } = process.env;
 const loadSession = async (slug) => {
   const fetch = (...args) => import('node-fetch')
     .then(({ default: f }) => f(...args));
-
-  const response = await fetch(`${API_URL}/sessions/${slug}`, {
-    method: 'GET',
-    headers: {Accept: 'application/json'},
-  });
-
-  if (response.status !== 200)
+  const response = await fetch(`${API_URL}/sessions/${slug}`);
+  if (response.status !== 200) {
+    const error = await response.text();
+    console.warn(`[${response.status}]: ${error}`);
     return null;
-
-  const data = await response.json();
-  return data.session;
+  }
+  const session = await response.json();
+  return session;
 };
 
 module.exports = {
